@@ -1,0 +1,4 @@
+interface:
+  display_name: "隐藏上下文澄清"
+  short_description: "在开发实施前识别隐藏区、排序关键问题并补齐决策上下文"
+  default_prompt: "使用 $clarify-hidden-context 在给出方案或代码前识别这个开发任务中尚未说明的关键上下文。"
