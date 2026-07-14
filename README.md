@@ -72,46 +72,97 @@ flowchart TD
 
 ## 安装
 
-Codex 支持用户级和仓库级 skill。用户级 skill 可用于任意项目，仓库级 skill 仅随对应项目生效。目录约定可参考 [Codex 官方 Build skills 文档](https://developers.openai.com/codex/build-skills)。
+Codex 支持用户级和仓库级 skill：用户级 skill 可用于本机任意项目，仓库级 skill 仅在对应项目中生效。目录约定可参考 [Codex 官方 Build skills 文档](https://developers.openai.com/codex/build-skills)。
 
-### 方式一：使用 Skill Installer（推荐）
+### 方式一：使用 Skill Installer（推荐，所有操作系统）
 
-在 Codex 中调用 `$skill-installer`，并提供本仓库地址：
+这种方式适用于 macOS、Linux 和 Windows，不需要手动处理安装目录。
+
+在 Codex 中输入：
 
 ```text
-使用 $skill-installer 安装这个 GitHub 仓库中的 skill：
-https://github.com/qfuzj/clarify-hidden-context-skills
+使用 $skill-installer 安装以下 GitHub 仓库中的 skill：
+
+仓库：https://github.com/qfuzj/clarify-hidden-context-skills
+skill 路径：.
+安装名称：clarify-hidden-context
 ```
 
-### 方式二：安装为用户级 skill
+> `$skill-installer` 会使用 Codex 配置的 skill 目录，默认安装到 `$CODEX_HOME/skills`；未设置 `CODEX_HOME` 时通常为 `~/.codex/skills`。
 
-这种方式会让 skill 在本机所有项目中可用：
+### 方式二：macOS / Linux
+
+以下命令适用于 Bash、Zsh 等常见 Shell。执行前请确认已经安装 [Git](https://git-scm.com/)。
+
+#### 安装为用户级 skill
+
+安装后可在本机所有项目中使用：
 
 ```bash
-REPO_URL="https://github.com/qfuzj/clarify-hidden-context-skills.git"
 mkdir -p "$HOME/.agents/skills"
-git clone "$REPO_URL" "$HOME/.agents/skills/clarify-hidden-context"
+git clone https://github.com/qfuzj/clarify-hidden-context-skills.git \
+  "$HOME/.agents/skills/clarify-hidden-context"
 ```
 
-### 方式三：安装到单个仓库
+#### 安装到当前仓库
 
-在目标仓库根目录执行：
+在目标仓库根目录执行，仅让该仓库使用此 skill：
 
 ```bash
-REPO_URL="https://github.com/qfuzj/clarify-hidden-context-skills.git"
 mkdir -p .agents/skills
-git clone "$REPO_URL" .agents/skills/clarify-hidden-context
+git clone https://github.com/qfuzj/clarify-hidden-context-skills.git \
+  .agents/skills/clarify-hidden-context
+```
+
+### 方式三：Windows
+
+以下命令适用于 PowerShell。执行前请确认已经安装 [Git for Windows](https://git-scm.com/download/win)。
+
+#### 安装为用户级 skill
+
+安装后可在本机所有项目中使用：
+
+```powershell
+$repoUrl = "https://github.com/qfuzj/clarify-hidden-context-skills.git"
+$skillsRoot = Join-Path $HOME ".agents\skills"
+$destination = Join-Path $skillsRoot "clarify-hidden-context"
+
+New-Item -ItemType Directory -Force -Path $skillsRoot | Out-Null
+git clone $repoUrl $destination
+```
+
+#### 安装到当前仓库
+
+在目标仓库根目录打开 PowerShell 并执行：
+
+```powershell
+$repoUrl = "https://github.com/qfuzj/clarify-hidden-context-skills.git"
+$skillsRoot = Join-Path (Get-Location) ".agents\skills"
+$destination = Join-Path $skillsRoot "clarify-hidden-context"
+
+New-Item -ItemType Directory -Force -Path $skillsRoot | Out-Null
+git clone $repoUrl $destination
 ```
 
 ### 方式四：手动安装
 
-下载仓库后，将整个目录复制到：
+从 GitHub 下载并解压仓库，然后将整个目录复制到以下任一位置。
+
+#### macOS / Linux
 
 ```text
-~/.agents/skills/clarify-hidden-context/
+用户级：~/.agents/skills/clarify-hidden-context/
+仓库级：<仓库根目录>/.agents/skills/clarify-hidden-context/
 ```
 
-安装后的关键结构应为：
+#### Windows
+
+```text
+用户级：%USERPROFILE%\.agents\skills\clarify-hidden-context\
+仓库级：<仓库根目录>\.agents\skills\clarify-hidden-context\
+```
+
+无论使用哪种方式，安装后的关键结构都应为：
 
 ```text
 clarify-hidden-context/
