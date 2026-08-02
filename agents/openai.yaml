@@ -1,4 +1,4 @@
 interface:
   display_name: "隐藏上下文澄清"
-  short_description: "在开发实施前识别隐藏区、排序关键问题并补齐决策上下文"
-  default_prompt: "使用 $clarify-hidden-context 在给出方案或代码前识别这个开发任务中尚未说明的关键上下文。"
+  short_description: "逐题追问会改变实现路径的关键上下文，将结论写回项目文件"
+  default_prompt: "使用 $clarify-hidden-context 逐题追问这个任务的隐藏上下文。只问会改变决策的问题，结论写回 CONTEXT.md。完成第一阶段后等我确认再继续。"
