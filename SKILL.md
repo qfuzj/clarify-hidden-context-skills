@@ -1,6 +1,7 @@
 ---
 name: clarify-hidden-context
 description: 在方案设计或编码前，逐一追问用户未明说但会改变实现路径的关键上下文，将结论写回项目文件。适用于功能开发、系统设计、代码优化；当用户提到乔哈里视窗、隐藏区、隐含需求、需求澄清、先别写代码时使用。
+disable-model-invocation: true
 ---
 
 # Clarify Hidden Context
